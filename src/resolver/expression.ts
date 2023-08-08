@@ -2,7 +2,7 @@ import _ = require('underscore')
 import { Expression, ExpressionObj } from '../api/api'
 import { isNumeric, cacheResult } from '../lib'
 
-export const OPERATORS = ['&', '|', '+', '-', '*', '/', '%', '!']
+export const OPERATORS = ['&', '|', 'Μ', 'μ', '+', '-', '*', '/', '%', '!']
 
 export const REGEXP_OPERATORS = new RegExp('([' + OPERATORS.map((o) => '\\' + o).join('') + '\\(\\)])', 'g')
 
@@ -76,6 +76,10 @@ export function simplifyExpression(expr0: Expression): Expression {
 				? l / r
 				: o === '%'
 				? l % r
+				: o === 'Μ'
+				? Math.max(l, r)
+				: o === 'μ'
+				? Math.min(l, r)
 				: { l, o, r }
 		}
 		return { l, o, r }

@@ -57,6 +57,14 @@ describe('Resolver, expressions', () => {
 			instances: { value: 24 % 5, references: [] },
 			allReferences: [],
 		})
+		expect(lookupExpression(rtl, stdObj, interpretExpression('24Μ5'), 'start')).toEqual({
+			instances: { value: 24, references: [] },
+			allReferences: [],
+		})
+		expect(lookupExpression(rtl, stdObj, interpretExpression('24μ5'), 'start')).toEqual({
+			instances: { value: 5, references: [] },
+			allReferences: [],
+		})
 	})
 	test('expressions', () => {
 		expect(interpretExpression('1 + 2')).toMatchObject({

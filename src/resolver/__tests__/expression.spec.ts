@@ -62,6 +62,24 @@ describe('Expression', () => {
 			o: '+',
 			r: '3',
 		})
+		expect(interpretExpression('1 * 2 Μ 3')).toMatchObject({
+			l: {
+				l: '1',
+				o: '*',
+				r: '2',
+			},
+			o: 'Μ',
+			r: '3',
+		})
+		expect(interpretExpression('1 Μ 2 Μ 3')).toMatchObject({
+			l: {
+				l: '1',
+				o: 'Μ',
+				r: '2',
+			},
+			o: 'Μ',
+			r: '3',
+		})
 		expect(interpretExpression('1 * (2 + 3)')).toMatchObject({
 			l: '1',
 			o: '*',
@@ -144,6 +162,9 @@ describe('Expression', () => {
 			o: '+',
 			r: 'asdf',
 		})
+
+		expect(simplifyExpression('5Μ4')).toEqual(5)
+		expect(simplifyExpression('5μ4')).toEqual(4)
 	})
 	test('validateExpression', () => {
 		expect(validateExpression(['+', '-'], '1+1')).toEqual(true)

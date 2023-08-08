@@ -983,6 +983,20 @@ export function lookupExpression(
 										references: joinReferences(a.references, b.references),
 									}
 							  }
+							: lookupExpr.o === 'Μ'
+							? (a, b) => {
+									return {
+										value: Math.max(a.value, b.value),
+										references: joinReferences(a.references, b.references),
+									}
+							  }
+							: lookupExpr.o === 'μ'
+							? (a, b) => {
+									return {
+										value: Math.min(a.value, b.value),
+										references: joinReferences(a.references, b.references),
+									}
+							  }
 							: lookupExpr.o === '%'
 							? (a, b) => {
 									return {
